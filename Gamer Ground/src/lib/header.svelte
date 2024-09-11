@@ -21,15 +21,6 @@
     if (!userId) {
       userId = '';
     }
-
-    // Load Bootstrap JS for collapse functionality
-    import('bootstrap/dist/js/bootstrap.bundle.min.js')
-      .then(() => {
-        console.log('Bootstrap JS loaded');
-      })
-      .catch((error) => {
-        console.error('Error loading Bootstrap JS:', error);
-      });
   });
 
   // Logout function to clear the cookie and reload the page

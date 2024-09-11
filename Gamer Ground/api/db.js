@@ -284,12 +284,12 @@ app.get('/api/receipts', (req, res) => {
 });
 
 app.post('/api/receipts', (req, res) => {
-  const { name, userId, category, date, item, price } = req.body; // Destructure the incoming data
+  const { name, userId, category, date, item, address, price } = req.body; // Destructure the incoming data
 
-  const query = 'INSERT INTO receipt (name, userId, category, date, item, price) VALUES (?, ?, ?, ?, ?, ?)';
+  const query = 'INSERT INTO receipt (name, userId, category, date, item, address, price) VALUES (?, ?, ?, ?, ?, ?, ?)';
 
   // Execute the query with the provided values
-  db.query(query, [name, userId, category, date, item, price], (err, result) => {
+  db.query(query, [name, userId, category, date, item, address, price], (err, result) => {
     if (err) {
       console.error('Error inserting data:', err);
       res.status(500).send('Server Error');

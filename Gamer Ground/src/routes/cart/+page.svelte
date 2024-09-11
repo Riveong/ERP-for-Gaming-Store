@@ -8,6 +8,7 @@
   	let userName = null;
 	let totalHarga = 0;
 	let metode = null;
+	let address = "";
 
 
 	// Function to fetch product details based on an item ID
@@ -57,7 +58,8 @@
 			category: 1, // Hardcoded category
 			date: new Date().toISOString().split('T')[0], // Current date in YYYY-MM-DD format
 			item: items, // Concatenated string of items
-			price: totalHarga // Total price
+			price: totalHarga, // Total price
+			address: address
 			
 		};
 
@@ -194,6 +196,12 @@ onMount(async () => {
 
 
     {#if products.length !== 0}
+		<label for={'address'} class="form-label"><b>Alamat Pengiriman</b></label><br>
+		<input 
+			id={'address'} 
+			type="text"
+			bind:value={address}
+			class="form-control w-50 d-inline"/><br>
 	<b>Metode Pembayaran</b><br>
 	<label>
 		<input checked={metode==="Gopay"} on:change={onChange} type="radio" name="metode" value="Gopay" /> Gopay
