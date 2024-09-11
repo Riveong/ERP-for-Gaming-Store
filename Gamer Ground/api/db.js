@@ -337,7 +337,7 @@ app.post('/api/signup', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    db.query('INSERT INTO users (name, email, password) VALUES (?, ?, ?)', [name, email, hashedPassword], (err) => {
+    db.query('INSERT INTO user (name, email, password) VALUES (?, ?, ?)', [name, email, hashedPassword], (err) => {
       if (err) {
         console.error('Error inserting into the database:', err); // Log the error
         return res.status(500).json({ message: 'Database insertion error' });
