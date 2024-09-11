@@ -92,7 +92,7 @@
           <a class="nav-link" href="/cart"> Cart <img src="{bag}" width="20px"/></a>
         </li>
           <li class="nav-item">
-            <button on:click={handleLogout} >Logout <img src="{exit}" width="20px"/></button>
+            <button class="nav-link" on:click={handleLogout} style="border: none; background: none; padding: 0; margin: 0; margin-top: 6px"> Logout <img src="{exit}" width="20px"/></button>
           </li>
         {:else}
           <li class="nav-item">

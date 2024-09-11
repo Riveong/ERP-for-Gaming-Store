@@ -12,19 +12,43 @@
     }
   </script>
   
-  <main class="p-5 d-flex flex-column">
+  <main class="p-3 d-flex flex-column">
     <div class="container-fluid flex-fill m-0">
-      <div class="row h-100">
-        <div class="col-2 bg-white border p-5 h-100">
-          <h2>Menu</h2>
-          <a href="#" on:click="{() => selectMenu('Dashboard')}">Dashboard</a><br>
-          <a href="#" on:click="{() => selectMenu('DaftarBarang')}">Daftar Barang</a><br>
-          <a href="#" on:click="{() => selectMenu('TambahBarang')}">Tambah Barang</a><br>
-          <a href="#" on:click="{() => selectMenu('EditBarang')}">Edit Barang</a><br>
-          <a href="#" on:click="{() => selectMenu('DaftarNota')}">Daftar Nota</a><br>
-          <a href="/logout">Logout</a>
-        </div>
-        <div class="col-10 bg-white border p-2 h-100">
+      <div class="row">
+        <!-- Sidebar Toggle Button (visible only on mobile) -->
+        <button class="btn btn-primary d-md-none mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          ☰ Menu
+        </button>
+  
+        <!-- Sidebar (Collapsible on mobile) -->
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+          <div class="position-sticky pt-3">
+            <h2 class="h5">Menu</h2>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" href="#" on:click="{() => selectMenu('Dashboard')}">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" on:click="{() => selectMenu('DaftarBarang')}">Daftar Barang</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" on:click="{() => selectMenu('TambahBarang')}">Tambah Barang</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" on:click="{() => selectMenu('EditBarang')}">Edit Barang</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" on:click="{() => selectMenu('DaftarNota')}">Daftar Nota</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-danger" href="/logout">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+  
+        <!-- Main Content Area -->
+        <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
           {#if currentMenu === 'Dashboard'}
             <Dashboard title="Dashboard" />
           {:else if currentMenu === 'DaftarBarang'}
@@ -40,4 +64,41 @@
       </div>
     </div>
   </main>
+  
+  <style>
+    .sidebar {
+      background-color: #f8f9fa;
+      min-height: 100vh;
+    }
+  
+    .sidebar .nav-link {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+  
+    .sidebar .nav-link:hover {
+      color: #007bff;
+    }
+  
+    .sidebar .nav-link.active {
+      font-weight: bold;
+      color: #007bff;
+    }
+  
+    /* For mobile screens, reduce padding and margins */
+    @media (max-width: 767.98px) {
+      .p-3 {
+        padding: 1rem !important;
+      }
+  
+      .btn {
+        padding: 0.5rem 1rem;
+      }
+  
+      .nav-link {
+        padding: 0.5rem;
+      }
+    }
+  </style>
   
