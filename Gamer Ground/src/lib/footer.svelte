@@ -12,10 +12,10 @@
             <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
                 <h5 class="text-uppercase mb-4">Quick Links</h5>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a class="text-white" href="#!">Home</a></li>
-                    <li class="mb-2"><a class="text-white" href="#!">About</a></li>
-                    <li class="mb-2"><a class="text-white" href="#!">Services</a></li>
-                    <li class="mb-2"><a class="text-white" href="#!">Contact</a></li>
+                    <li class="mb-2"><a class="text-white" href="/">Home</a></li>
+                    <li class="mb-2"><a class="text-white" href="/product">Product</a></li>
+                    <li class="mb-2"><a class="text-white" href="/about">About</a></li>
+                    <li class="mb-2"><a class="text-white" href="/about">Contact</a></li>
                 </ul>
             </div>
 
@@ -23,10 +23,8 @@
             <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
                 <h5 class="text-uppercase mb-4">Resources</h5>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a class="text-white" href="#!">Blog</a></li>
-                    <li class="mb-2"><a class="text-white" href="#!">FAQ</a></li>
-                    <li class="mb-2"><a class="text-white" href="#!">Support</a></li>
-                    <li class="mb-2"><a class="text-white" href="#!">Privacy Policy</a></li>
+                    <li class="mb-2"><a class="text-white" href="/products">Catalogue</a></li>
+                    <li class="mb-2"><a class="text-white" href="/privacy-policy">Privacy Policy</a></li>
                 </ul>
             </div>
 
@@ -45,6 +43,6 @@
 
     <!-- Copyright -->
     <div class="text-center p-3 mt-4" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2024 Company Name. All Rights Reserved.
+        © 2024 Gamer Ground. All Rights Reserved.
     </div>
 </footer>

@@ -320,6 +320,24 @@ app.get('/api/receipts/:id', (req, res) => {
   });
 });
 
+app.get('/api/receipts/history/:userId', (req, res) => {
+  const userId = req.params.userId;
+
+  const query = 'SELECT * FROM receipt WHERE userId = ? ORDER BY id DESC';
+  db.query(query, [userId], (err, result) => {
+      if (err) {
+          console.error('Error retrieving items from database:', err);
+          return res.status(500).json({ error: 'Database error' });
+      }
+
+      if (result.length > 0) {
+          res.status(200).json(result);
+      } else {
+          res.status(404).json({ error: 'No receipts found for this user' });
+      }
+  });
+});
+
 
 // Sign-Up Endpoint
 app.post('/api/signup', async (req, res) => {
@@ -426,7 +444,282 @@ app.get('/api/admin/total-items', (req, res) => {
   });
 });
 
-  // Start the server
+app.post('/api/admin', async (req, res) => {
+  const { name, email, password } = req.body;
+
+  // Validate input data
+  if (!name || !email || !password) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  try {
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Insert the admin data into the database
+    const query = 'INSERT INTO admin (name, email, password) VALUES (?, ?, ?)';
+    const values = [name, email, hashedPassword];
+
+    db.query(query, values, (err, result) => {
+      if (err) {
+        console.error('Error inserting admin into database:', err);
+        return res.status(500).json({ error: 'Database error' });
+      }
+
+      res.status(201).json({ message: 'Admin added successfully' });
+    });
+  } catch (error) {
+    console.error('Error hashing password:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+app.get('/api/admin/:name', (req, res) => {
+  const adminName = req.params.name;
+  const passwordFromHeader = req.headers['password']; // Retrieve the password from the request header
+  
+  if (!passwordFromHeader) {
+    return res.status(400).send('Password is required');
+  }
+
+  const query = 'SELECT * FROM admin WHERE name = ?';
+
+  db.query(query, [adminName], (err, result) => {
+    if (err) {
+      console.error('Error fetching admin:', err);
+      return res.status(500).send('Server Error');
+    }
+
+    if (result.length === 0) {
+      return res.status(404).send('Admin not found');
+    }
+
+    const admin = result[0];
+
+    // Compare the password from the header with the hashed password in the database using bcrypt
+    bcrypt.compare(passwordFromHeader, admin.password, (err, isMatch) => {
+      if (err) {
+        console.error('Error comparing passwords:', err);
+        return res.status(500).send('Server Error');
+      }
+
+      if (!isMatch) {
+        return res.status(403).send('Invalid password');
+      }
+
+      // If the password matches, return the admin data
+      res.json(admin);
+    });
+  });
+});
+
+app.get('/api/admins', (req, res) => {
+  const query = 'SELECT id, name, email FROM admin';
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching admins:', err);
+      res.status(500).send('Server Error');
+      return;
+    }
+
+    res.json(results);
+  });
+});
+
+app.delete('/api/admins/:id', (req, res) => {
+  const adminId = req.params.id;  // Get the admin id from the URL
+  const query = 'DELETE FROM admin WHERE id = ?';  // SQL query to delete the admin
+
+  // Execute the query
+  db.query(query, [adminId], (err, result) => {
+    if (err) {
+      res.status(500).send('Server Error');
+      return;
+    }
+
+    if (result.affectedRows === 0) {
+      // If no rows were affected, the admin with the given id doesn't exist
+      res.status(404).send('Admin not found');
+      return;
+    }
+
+    // Send a success message when the admin is successfully deleted
+    res.send(`Admin with id ${adminId} deleted successfully`);
+  });
+});
+
+app.get('/api/users/:id', (req, res) => {
+  const userId = req.params.id;
+  const query = 'SELECT id, name, email FROM user WHERE id = ?';
+
+  db.query(query, [userId], (err, result) => {
+    if (err) {
+      console.error('Error retrieving user from database:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+
+    if (result.length > 0) {
+      res.status(200).json(result[0]);
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  });
+});
+
+// Endpoint to update user's email
+app.put('/api/users/:id/email', (req, res) => {
+  const userId = req.params.id;
+  const newEmail = req.body.email;
+  const password = req.headers['password']; // Password sent in header
+
+  const query = 'SELECT * FROM user WHERE id = ?';
+
+  db.query(query, [userId], (err, result) => {
+    if (err) {
+      console.error('Error retrieving user from database:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+
+    if (result.length > 0) {
+      const user = result[0];
+
+      // Compare password in the header with the hashed password in the database
+      bcrypt.compare(password, user.password, (err, isMatch) => {
+        if (err) {
+          console.error('Error comparing password:', err);
+          return res.status(500).json({ error: 'Server error' });
+        }
+
+        if (isMatch) {
+          // Password matches, update the email
+          const updateQuery = 'UPDATE user SET email = ? WHERE id = ?';
+
+          db.query(updateQuery, [newEmail, userId], (err, result) => {
+            if (err) {
+              console.error('Error updating email:', err);
+              return res.status(500).json({ error: 'Database error' });
+            }
+
+            res.status(200).json({ message: 'Email updated successfully' });
+          });
+        } else {
+          res.status(401).json({ error: 'Invalid password' });
+        }
+      });
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  });
+});
+
+// Endpoint to update user's password
+app.put('/api/users/:id/password', (req, res) => {
+  const userId = req.params.id;
+  const newPassword = req.body.newPassword;
+  const password = req.headers['password']; // Password sent in header
+
+  const query = 'SELECT * FROM user WHERE id = ?';
+
+  db.query(query, [userId], (err, result) => {
+    if (err) {
+      console.error('Error retrieving user from database:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+
+    if (result.length > 0) {
+      const user = result[0];
+
+      // Compare password in the header with the hashed password in the database
+      bcrypt.compare(password, user.password, (err, isMatch) => {
+        if (err) {
+          console.error('Error comparing password:', err);
+          return res.status(500).json({ error: 'Server error' });
+        }
+
+        if (isMatch) {
+          // Password matches, hash the new password
+          bcrypt.hash(newPassword, 10, (err, hashedPassword) => {
+            if (err) {
+              console.error('Error hashing password:', err);
+              return res.status(500).json({ error: 'Server error' });
+            }
+
+            // Update password in the database
+            const updateQuery = 'UPDATE user SET password = ? WHERE id = ?';
+
+            db.query(updateQuery, [hashedPassword, userId], (err, result) => {
+              if (err) {
+                console.error('Error updating password:', err);
+                return res.status(500).json({ error: 'Database error' });
+              }
+
+              res.status(200).json({ message: 'Password updated successfully' });
+            });
+          });
+        } else {
+          res.status(401).json({ error: 'Invalid password' });
+        }
+      });
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  });
+});
+
+
+// DELETE /api/users/:id - Delete a user by ID after verifying password
+app.delete('/api/users/:id', (req, res) => {
+  const userId = req.params.id;
+  const headerPassword = req.headers['password']; // Get password from the request header
+
+  if (!headerPassword) {
+    return res.status(400).json({ error: 'Password is required in the header' });
+  }
+
+  // Query to fetch the user by ID
+  const query = 'SELECT * FROM user WHERE id = ?'; // Assuming MySQL/MariaDB
+
+  // Fetch user from the database
+  db.query(query, [userId], (err, result) => {
+    if (err) {
+      console.error('Error retrieving user from database:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+
+    if (result.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const user = result[0];
+
+    // Compare the password from the header with the hashed password in the database
+    bcrypt.compare(headerPassword, user.password, (err, isMatch) => {
+      if (err) {
+        console.error('Error comparing passwords:', err);
+        return res.status(500).json({ error: 'Server error' });
+      }
+
+      if (!isMatch) {
+        return res.status(401).json({ error: 'Invalid password' });
+      }
+
+      // If password matches, proceed to delete the user
+      const deleteQuery = 'DELETE FROM user WHERE id = ?';
+
+      db.query(deleteQuery, [userId], (err, result) => {
+        if (err) {
+          console.error('Error deleting user:', err);
+          return res.status(500).json({ error: 'Database error' });
+        }
+
+        res.status(200).json({ message: 'User deleted successfully' });
+      });
+    });
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

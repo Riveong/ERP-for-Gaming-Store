@@ -22,8 +22,8 @@
                     <p><strong>Added Date:</strong> {item.date}</p>
                     <p><strong>Items:</strong> {item.item}</p>
                     <p><strong>Address:</strong> {item.address}</p>
-                    <p><strong>Price:</strong>{item.price}</p>
-                    <!-- Add more fields as needed -->
+                    <p><strong>Price:</strong> Rp. {item.price}</p>
+
                 {:else}
                     <p>Loading...</p>
                 {/if}

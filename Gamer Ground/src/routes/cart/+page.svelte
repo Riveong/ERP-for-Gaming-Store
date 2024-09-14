@@ -39,7 +39,7 @@
 		const year = now.getFullYear();
 		const month = String(now.getMonth() + 1).padStart(2, '0'); // Month is zero-indexed
 		const day = String(now.getDate()).padStart(2, '0');
-		return `${year}-${month}-${day}-1-${userId}-${metode}`;
+		return `${year}-${month}-${day}-1-${userId}-${metode}-${userName}`;
 	}
 
 	// Function to prepare the receipt data and post it
@@ -54,7 +54,7 @@
 		// Prepare the receipt data
 		const receiptData = {
 			name: generateReceiptName(), // Name based on the current date
-			userId: `id:${userId};name:${userName}`, // Retrieved from the cookie
+			userId: userId, // Retrieved from the cookie
 			category: 1, // Hardcoded category
 			date: new Date().toISOString().split('T')[0], // Current date in YYYY-MM-DD format
 			item: items, // Concatenated string of items
@@ -174,7 +174,7 @@ onMount(async () => {
 				<div class="col-12 col-md-7">
 					<h2 class="h5">{product.name}</h2>
 					<p>Category: {product.category}</p>
-					<p>Price: {product.price}</p>
+					<p>Price: Rp. {product.price}</p>
 					<p>Added Date: {new Date(product.addedDate).toLocaleDateString()}</p>
 				</div>
 

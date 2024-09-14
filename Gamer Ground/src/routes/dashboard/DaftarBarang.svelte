@@ -32,7 +32,7 @@
                             <b class="">id: {item.id}</b>
                             <h3 class="text-start fw-light">{item.name}</h3>
                             <p class="text-start fw-bold">{item.category}</p>
-                            <p class="text-start fw-light">IDR {item.price}</p>
+                            <p class="text-start fw-light">Rp. {item.price}</p>
                             <a href="../detail/{item.id}" class="btn btn-dark">Detail</a>
                         </div>
                     </div>

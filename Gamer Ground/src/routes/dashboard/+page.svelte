@@ -4,6 +4,7 @@
     import TambahBarang from './TambahBarang.svelte';
     import EditBarang from './EditBarang.svelte';
     import DaftarNota from './DaftarNota.svelte';
+    import TambahAdmin from './TambahAdmin.svelte';
   
     let currentMenu = 'Dashboard';
   
@@ -41,6 +42,9 @@
                 <a class="nav-link" href="#" on:click="{() => selectMenu('DaftarNota')}">Daftar Nota</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="#" on:click="{() => selectMenu('TambahAdmin')}">Tambah Admin</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link text-danger" href="/logout">Logout</a>
               </li>
             </ul>
@@ -59,6 +63,8 @@
             <EditBarang title="Edit Barang" />
           {:else if currentMenu === 'DaftarNota'}
             <DaftarNota title="Daftar Nota" />
+          {:else if currentMenu === 'TambahAdmin'}
+            <TambahAdmin title="TambahAdmin" />
           {/if}
         </div>
       </div>

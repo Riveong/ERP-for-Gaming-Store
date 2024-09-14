@@ -5,6 +5,7 @@
   import bag from '$lib/images/bag.png';
   import login from '$lib/images/login.png';
 
+
   let userId = '';
 
   // Helper function to get the value of a cookie by name
@@ -17,10 +18,17 @@
 
   // This will run only in the browser, not during SSR
   onMount(() => {
-    userId = getCookie('userId'); // Fetch the userId from cookies on the client-side
+    userId = getCookie('userId');
     if (!userId) {
       userId = '';
     }
+    import('bootstrap/dist/js/bootstrap.bundle.min.js')
+      .then(() => {
+        console.log('Bootstrap JS loaded for collapse');
+      })
+      .catch((error) => {
+        console.error('Error loading Bootstrap JS:', error);
+      });
   });
 
   // Logout function to clear the cookie and reload the page
@@ -45,7 +53,7 @@
 <!-- Navbar with collapse functionality -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white p-4">
   <div class="container-fluid fw-bold">
-    <a class="navbar-brand" href="#"><img style="width:50px" src="{logo}" alt="Logo"></a>
+    <a class="navbar-brand" href="/"><img style="width:50px" src="{logo}" alt="Logo"> Gamer Ground </a>
 
     <!-- Toggle button for mobile collapse -->
     <button
@@ -82,8 +90,14 @@
         <li class="nav-item">
           <a class="nav-link" href="/cart"> Cart <img src="{bag}" width="20px"/></a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/history"> History <img src="{bag}" width="20px"/></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/profile"> Profile <img src="{bag}" width="20px"/></a>
+        </li>
           <li class="nav-item">
-            <button class="nav-link" on:click={handleLogout} style="border: none; background: none; padding: 0; margin: 0; margin-top: 6px"> Logout <img src="{exit}" width="20px"/></button>
+            <button class="nav-link text-danger" on:click={handleLogout} style="border: none; background: none; padding: 0; margin: 0; margin-top: 6px"> Logout <img src="{exit}" width="20px"/></button>
           </li>
         {:else}
           <li class="nav-item">
