@@ -4,7 +4,8 @@
   import exit from '$lib/images/exit.png';
   import bag from '$lib/images/bag.png';
   import login from '$lib/images/login.png';
-
+  import history from '$lib/images/history.png';
+  import user from '$lib/images/user.png';
 
   let userId = '';
 
@@ -68,12 +69,10 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Collapsible part of the navbar -->
     <div class="collapse navbar-collapse fw-light" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <!-- Regular navigation links -->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/products">Products</a>
@@ -82,22 +81,21 @@
           <a class="nav-link" href="/about">About</a>
         </li>
 
-        <!-- Show "Logout" if userId exists, otherwise show "Login & Register" -->
         {#if userId}
         <li class="nav-item">
           <span class="nav-link"><b>Welcome, {userId} |</b></span>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/cart"> Cart <img src="{bag}" width="20px"/></a>
+          <a class="nav-link" href="/cart"> <img src="{bag}" width="20px"/> Cart </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/history"> History <img src="{bag}" width="20px"/></a>
+          <a class="nav-link" href="/history"> <img src="{history}" width="20px"/> History </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/profile"> Profile <img src="{bag}" width="20px"/></a>
+          <a class="nav-link" href="/profile">  <img src="{user}" width="20px"/> Profile</a>
         </li>
           <li class="nav-item">
-            <button class="nav-link text-danger" on:click={handleLogout} style="border: none; background: none; padding: 0; margin: 0; margin-top: 6px"> Logout <img src="{exit}" width="20px"/></button>
+            <button class="nav-link text-danger" on:click={handleLogout} style="border: none; background: none; padding: 0; margin: 0; margin-top: 6px"><img src="{exit}" width="20px"/> Logout </button>
           </li>
         {:else}
           <li class="nav-item">

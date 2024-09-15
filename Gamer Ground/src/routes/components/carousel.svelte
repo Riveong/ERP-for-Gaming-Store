@@ -2,12 +2,13 @@
     import { onMount, onDestroy } from "svelte";
     import car1 from "$lib/images/slide1.png";
     import car2 from "$lib/images/slide2.png";
+    import car3 from "$lib/images/slide3.png";
 
     let currentIndex = 0;
     let images = [
       car1,
       car2,
-      "https://via.placeholder.com/600x300/7fff7f/333333?text=Slide+3",
+      car3,
     ];
   
     let interval;
@@ -15,7 +16,7 @@
     onMount(() => {
       interval = setInterval(() => {
         nextSlide();
-      }, 5000);
+      }, 7000);
     });
   
     function nextSlide() {
