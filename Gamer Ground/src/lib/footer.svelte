@@ -13,7 +13,7 @@
                 <h5 class="text-uppercase mb-4">Quick Links</h5>
                 <ul class="list-unstyled">
                     <li class="mb-2"><a class="text-white" href="/">Home</a></li>
-                    <li class="mb-2"><a class="text-white" href="/product">Product</a></li>
+                    <li class="mb-2"><a class="text-white" href="/products">Product</a></li>
                     <li class="mb-2"><a class="text-white" href="/about">About</a></li>
                     <li class="mb-2"><a class="text-white" href="/about">Contact</a></li>
                 </ul>
