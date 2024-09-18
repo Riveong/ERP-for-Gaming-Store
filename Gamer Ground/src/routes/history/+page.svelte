@@ -45,7 +45,7 @@
                     <p>Receipt Details:</p>
                     <p>Name: {receipt.name}</p>
                     <p>Date: {receipt.date}</p>
-                    <p>Price: Rp. {receipt.price}</p>
+                    <p>Price: Rp. {new Intl.NumberFormat('de-DE').format(receipt.price)}</p>
                     <p>Item: {receipt.item}</p>
                 </div>
                 <button class="btn btn-dark" on:click={() => selectedReceipt = null}>Close</button>

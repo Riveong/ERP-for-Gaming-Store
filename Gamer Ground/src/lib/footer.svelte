@@ -31,12 +31,7 @@
             <!-- Social Icons -->
             <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                 <h5 class="text-uppercase mb-4">Follow Us</h5>
-                <div class="social-icons">
-                    <a href="#!" class="me-3"><i class="bi bi-facebook"></i></a>
-                    <a href="#!" class="me-3"><i class="bi bi-twitter"></i></a>
-                    <a href="#!" class="me-3"><i class="bi bi-instagram"></i></a>
-                    <a href="#!" class="me-3"><i class="bi bi-linkedin"></i></a>
-                </div>
+                <a href="https://www.instagram.com/gamergroundshop?igsh=MTYwcXF3dXo2dXBnYw=="><img src="https://cdn.freebiesupply.com/images/large/2x/instagram-logo-white-on-black.png" width="40px"></a>
             </div>
         </div>
     </div>

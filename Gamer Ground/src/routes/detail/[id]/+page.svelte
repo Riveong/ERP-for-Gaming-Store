@@ -55,7 +55,7 @@
         <div class="column flex-fill ms-2">
           <h1>{item.name}</h1>
           <p class="fw-bold">{item.category}</p>
-          <p class="fw-bolder">IDR {item.price}</p>
+          <p class="fw-bolder">Rp. {new Intl.NumberFormat('de-DE').format(item.price)}</p>
           <p class="fw-light">{item.description}</p>
           <!-- Add to cart button with on:click handler -->
           <button class="btn btn-dark" on:click={() => addToCart(item.id)}>Add to cart</button>

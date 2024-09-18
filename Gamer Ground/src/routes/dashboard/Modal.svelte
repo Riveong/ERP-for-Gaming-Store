@@ -22,7 +22,7 @@
                     <p><strong>Added Date:</strong> {item.date}</p>
                     <p><strong>Items:</strong> {item.item}</p>
                     <p><strong>Address:</strong> {item.address}</p>
-                    <p><strong>Price:</strong> Rp. {item.price}</p>
+                    <p><strong>Price:</strong> Rp. {new Intl.NumberFormat('de-DE').format(item.price)}</p>
 
                 {:else}
                     <p>Loading...</p>

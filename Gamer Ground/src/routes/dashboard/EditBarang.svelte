@@ -115,7 +115,7 @@
               <b class="">id: {item.id}</b>
               <h3 class="text-start fw-light">{item.name}</h3>
               <p class="text-start fw-bold">{item.category}</p>
-              <p class="text-start fw-light">IDR {item.price}</p>
+              <p class="text-start fw-light">Rp. {new Intl.NumberFormat('de-DE').format(item.price)}</p>
               <button class="btn btn-dark" on:click={() => openEditModal(item)}>edit</button>
               <button class="btn btn-danger" on:click={() => deleteProduct(item.id)}>delete</button>
             </div>

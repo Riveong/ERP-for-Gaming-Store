@@ -34,7 +34,7 @@
             <img src={item.thumbnail} alt={item.name} />
             <h2 class="text-start fw-light">{item.name}</h2>
             <p class="text-start fw-bold">{item.category}</p>
-            <p class="text-start fw-light">IDR {item.price}</p>
+            <p class="text-start fw-light">Rp. {new Intl.NumberFormat('de-DE').format(item.price)}</p>
             <a href="../detail/{item.id}" class="btn btn-dark">Detail</a>
           </div>
         </div>

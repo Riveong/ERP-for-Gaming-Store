@@ -59,6 +59,6 @@ export const actions = {
         }
 
         // If neither check passes, return an error
-        return fail(400, { message: apiCheck.message || 'Invalid credentials' });
+        return alert(400, { message: apiCheck.message || 'Invalid credentials' });
     }
 };

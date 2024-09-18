@@ -19,23 +19,33 @@
     };
   </script>
   
-  <h1>Sign Up</h1>
-  <form on:submit|preventDefault={signup}>
-    <label>
-      Name:
-      <input type="text" bind:value={name} />
-    </label>
-    <label>
-      Email:
-      <input type="email" bind:value={email} />
-    </label>
-    <label>
-      Password:
-      <input type="password" bind:value={password} />
-    </label>
-    <button type="submit">Sign Up</button>
-  </form>
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-4 shadow-lg" style="max-width: 400px; width: 100%;">
+      <div class="card-body text-center">
+        <h1 class="card-title text-center h3 mb-4">Sign Up</h1>
+        <p>Please register your account!</p>
+        <form on:submit|preventDefault={signup}>
+          <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input type="text" class="form-control" id="name" bind:value={name} required />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email" bind:value={email} required />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" class="form-control" id="password" bind:value={password} required />
+          </div>
+          <button type="submit" class="btn btn-dark w-100 mt-3">Sign Up</button>
+          <div class="mt-4">
+            <a href="/signin" class="text-decoration-none">Already have an account? Sign in</a>
+          </div>        
+        </form>
+      </div>
+    </div>
+  </div>
   
 
-  <a href="/signin">Already have an account? Sign in</a>
+
   

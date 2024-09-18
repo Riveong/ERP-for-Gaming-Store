@@ -174,7 +174,7 @@ onMount(async () => {
 				<div class="col-12 col-md-7">
 					<h2 class="h5">{product.name}</h2>
 					<p>Category: {product.category}</p>
-					<p>Price: Rp. {product.price}</p>
+					<p>Price: Rp. {new Intl.NumberFormat('de-DE').format(product.price)}</p>
 					<p>Added Date: {new Date(product.addedDate).toLocaleDateString()}</p>
 				</div>
 
@@ -213,7 +213,7 @@ onMount(async () => {
 		<input checked={metode==="Qris"} on:change={onChange} type="radio" name="metode" value="Qris" /> Qris
 	</label>
 
-	<p>Total Harga: {totalHarga}</p>
+	<p>Total Harga: Rp. {new Intl.NumberFormat('de-DE').format(totalHarga)}</p>
     <div class="text-center">
 			<button class="btn btn-primary" on:click={postReceipt}>Bayar</button>
 		</div>
